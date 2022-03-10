@@ -16,15 +16,12 @@ namespace NavigationMVVM.ViewModels
     private readonly AccountStore _accountStore;
 
     public string Username => _accountStore.CurrentAccount.Username;
-    public NavigationBarViewModel NavigationBarViewModel { get; }
+    
     public ICommand NavigateHomeCommand { get; }
 
-    public AccountViewModel(NavigationBarViewModel navigationBarViewModel, AccountStore accountStore, NavigationService<HomeViewModel> homeNavigationService)
+    public AccountViewModel(AccountStore accountStore, INavigationService<HomeViewModel> homeNavigationService)
     {
-      NavigationBarViewModel = navigationBarViewModel;
-
       _accountStore = accountStore;
-      
       NavigateHomeCommand = new NavigateCommand<HomeViewModel>(homeNavigationService);
     }
   }

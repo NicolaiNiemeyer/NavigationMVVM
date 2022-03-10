@@ -9,11 +9,10 @@ using System.Threading.Tasks;
 namespace NavigationMVVM.Services
 {
   //Navigating views goes through this service
-  public class NavigationService<TViewModel>
-    where TViewModel : ViewModelBase        //'where' constraint so that TViewModel inherits from ViewModelBase
+  public class NavigationService<TViewModel> : INavigationService<TViewModel> where TViewModel : ViewModelBase        //'where' constraint so that TViewModel inherits from ViewModelBase
   {
     private readonly NavigationStore _navigationStore;
-    private readonly Func<TViewModel> _createViewModel;   
+    private readonly Func<TViewModel> _createViewModel;
 
     //ctor used for instanciating a view model
     public NavigationService(NavigationStore navigationStore, Func<TViewModel> createViewModel)

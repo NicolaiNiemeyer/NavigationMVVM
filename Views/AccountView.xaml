@@ -8,39 +8,31 @@
   d:DesignHeight="450"
   d:DesignWidth="800"
   mc:Ignorable="d">
+  
   <Grid>
     <Grid.RowDefinitions>
-      <RowDefinition Height="auto"/>
-      <RowDefinition Height="*"/>
+      <RowDefinition Height="auto" />
+      <RowDefinition Height="auto" />
+      <RowDefinition Height="auto" />
+      <RowDefinition Height="auto" />
     </Grid.RowDefinitions>
 
-    <components:NavigationBar Grid.Row="0" DataContext="{Binding NavigationBarViewModel}" />
-
-    <Grid Grid.Row="1" MaxWidth="1000" Margin="20">
-      <Grid.RowDefinitions>
-        <RowDefinition Height="auto" />
-        <RowDefinition Height="auto" />
-        <RowDefinition Height="auto" />
-        <RowDefinition Height="auto" />
-      </Grid.RowDefinitions>
-
-      <TextBlock 
+    <TextBlock 
       Grid.Row="0"
       FontSize="28"
       Text="Account" />
 
-      <TextBlock 
+    <TextBlock 
       Grid.Row="1" 
       Margin="0 20 0 0"
       Text="{Binding Username}" />
 
-      <Button 
+    <Button 
       Grid.Row="2" 
       Margin="0 20 0 0" 
       Padding="5 2"
       HorizontalAlignment="Left"
       Command="{Binding NavigateHomeCommand}"
       Content="Home" />
-    </Grid>
   </Grid>
 </UserControl>

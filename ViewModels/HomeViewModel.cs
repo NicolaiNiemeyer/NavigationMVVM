@@ -15,16 +15,11 @@ namespace NavigationMVVM.ViewModels
   {
     public string WelcomeMessage => "Welcome to my app";
 
-    public NavigationBarViewModel NavigationBarViewModel { get; }
-
     public ICommand NavigateLoginCommand { get; }
 
-    public HomeViewModel(NavigationBarViewModel navigationBarViewModel, NavigationService<LoginViewModel> loginNavigationService)
+    public HomeViewModel(INavigationService<LoginViewModel> loginNavigationService)
     {
-      NavigationBarViewModel = navigationBarViewModel;
-
       NavigateLoginCommand = new NavigateCommand<LoginViewModel>(loginNavigationService);
-
     }
   }
 }

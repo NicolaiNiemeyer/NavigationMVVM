@@ -6,7 +6,7 @@
   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
   xmlns:local="clr-namespace:NavigationMVVM"
   xmlns:views="clr-namespace:NavigationMVVM.Views"
-  xmlns:viewmodels="clr-namespace:NavigationMVVM.ViewModels" 
+  xmlns:viewmodels="clr-namespace:NavigationMVVM.ViewModels" xmlns:components="clr-namespace:NavigationMVVM.Components"
   Title="Navigation Demo" 
   Height="450" 
   Width="800"
@@ -22,6 +22,9 @@
     </DataTemplate>
     <DataTemplate DataType="{x:Type viewmodels:LoginViewModel}">
       <views:LoginView />
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type viewmodels:LayoutViewModel}">
+      <components:Layout/>
     </DataTemplate>
   </ContentControl.Resources>
 

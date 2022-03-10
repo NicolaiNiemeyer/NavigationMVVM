@@ -19,24 +19,18 @@ namespace NavigationMVVM
     //fields
     private readonly AccountStore _accountStore;
     private readonly NavigationStore _navigationStore;
-    private readonly NavigationBarViewModel _navigationBarViewModel;
+
 
     //constructor
     public App()
     {
-      _accountStore  = new AccountStore();
+      _accountStore = new AccountStore();
       _navigationStore = new NavigationStore();
-      _navigationBarViewModel = new NavigationBarViewModel(
-        _accountStore,
-        CreateHomeNavigationService(),
-        CreateAccountNavigationService(),
-        CreateLoginNavigationService());
     }
+
     protected override void OnStartup(StartupEventArgs e)
     {
-      
-
-      NavigationService<HomeViewModel> homeNavigationService = CreateHomeNavigationService();
+      INavigationService<HomeViewModel> homeNavigationService = CreateHomeNavigationService();
       homeNavigationService.Navigate();
 
       MainWindow = new MainWindow()
@@ -47,27 +41,41 @@ namespace NavigationMVVM
 
       base.OnStartup(e);
     }
-    private NavigationService<HomeViewModel> CreateHomeNavigationService()
+    private INavigationService<HomeViewModel> CreateHomeNavigationService()
     {
-      return new NavigationService<HomeViewModel>(
+      return new LayoutNavigationService<HomeViewModel>(
         _navigationStore,
-        () => new HomeViewModel(_navigationBarViewModel, CreateLoginNavigationService()));
+        () => new HomeViewModel(
+          CreateLoginNavigationService()),
+          CreateNavigationBarViewModel);
     }
-    private NavigationService<LoginViewModel> CreateLoginNavigationService()
+    private INavigationService<LoginViewModel> CreateLoginNavigationService()
     {
       return new NavigationService<LoginViewModel>(
         _navigationStore,
-        () => new LoginViewModel(_accountStore, CreateAccountNavigationService()));
+        () => new LoginViewModel(
+          _accountStore, 
+          CreateAccountNavigationService()));
     }
 
-    private NavigationService<AccountViewModel> CreateAccountNavigationService()
+    private INavigationService<AccountViewModel> CreateAccountNavigationService()
     {
-      return new NavigationService<AccountViewModel>(
+      return new LayoutNavigationService<AccountViewModel>(
         _navigationStore,
-        () => new AccountViewModel(_navigationBarViewModel, _accountStore, CreateHomeNavigationService()));
+        () => new AccountViewModel(
+          _accountStore, 
+          CreateHomeNavigationService()),
+          CreateNavigationBarViewModel);
     }
 
-
+    private NavigationBarViewModel CreateNavigationBarViewModel()
+    {
+      return new NavigationBarViewModel(
+        _accountStore,
+        CreateHomeNavigationService(),
+        CreateAccountNavigationService(),
+        CreateLoginNavigationService());
+    }
 
   }
 }

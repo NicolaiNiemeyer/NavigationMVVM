@@ -15,9 +15,9 @@ namespace NavigationMVVM.Commands
   {
     private readonly LoginViewModel _viewModel;
     private readonly AccountStore _accountStore;
-    private readonly NavigationService<AccountViewModel> _navigationService;    //The login command navigates to the account view model
+    private readonly INavigationService<AccountViewModel> _navigationService;    //The login command navigates to the account view model
 
-    public LoginCommand(LoginViewModel viewModel, AccountStore accountStore, NavigationService<AccountViewModel> navigationService)
+    public LoginCommand(LoginViewModel viewModel, AccountStore accountStore, INavigationService<AccountViewModel> navigationService)
     {
       _viewModel = viewModel;
       _accountStore = accountStore;
