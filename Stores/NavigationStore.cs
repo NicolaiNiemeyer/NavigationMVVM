@@ -18,6 +18,7 @@ namespace NavigationMVVM.Stores
       get => _currentViewModel;
       set
       {
+        _currentViewModel?.Dispose();   //by setting ?, the Dispose function wont run on the first page when the application starts
         _currentViewModel = value;
         OnCurrentViewModelChanged();
       }

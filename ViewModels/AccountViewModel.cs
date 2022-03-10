@@ -15,7 +15,7 @@ namespace NavigationMVVM.ViewModels
   {
     private readonly AccountStore _accountStore;
 
-    public string Username => _accountStore.CurrentAccount.Username;
+    public string Username => _accountStore.CurrentAccount?.Username;
     
     public ICommand NavigateHomeCommand { get; }
 
@@ -23,6 +23,21 @@ namespace NavigationMVVM.ViewModels
     {
       _accountStore = accountStore;
       NavigateHomeCommand = new NavigateCommand<HomeViewModel>(homeNavigationService);
+
+      //subscribes to account change event
+      _accountStore.CurrentAccountChanged += OnCurrentAccountChanged;
+    }
+
+    //raised when account changes
+    private void OnCurrentAccountChanged()
+    {
+      OnPropertyChanged(nameof(Username));
+    }
+
+    public override void Dispose()
+    {
+      _accountStore.CurrentAccountChanged -= OnCurrentAccountChanged;
+      base.Dispose();
     }
   }
 }
