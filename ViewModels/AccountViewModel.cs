@@ -1,4 +1,5 @@
 ﻿using NavigationMVVM.Commands;
+using NavigationMVVM.Models;
 using NavigationMVVM.Services;
 using NavigationMVVM.Stores;
 using System;
@@ -12,14 +13,19 @@ namespace NavigationMVVM.ViewModels
 {
   public class AccountViewModel : ViewModelBase
   {
-    public string Name => "SingletonSean";
+    private readonly AccountStore _accountStore;
 
+    public string Username => _accountStore.CurrentAccount.Username;
+    public NavigationBarViewModel NavigationBarViewModel { get; }
     public ICommand NavigateHomeCommand { get; }
 
-    public AccountViewModel(NavigationStore navigationStore)
+    public AccountViewModel(NavigationBarViewModel navigationBarViewModel, AccountStore accountStore, NavigationService<HomeViewModel> homeNavigationService)
     {
-      NavigateHomeCommand = new NavigateCommand<HomeViewModel>(new NavigationService<HomeViewModel>(
-        navigationStore, () => new HomeViewModel(navigationStore)));
+      NavigationBarViewModel = navigationBarViewModel;
+
+      _accountStore = accountStore;
+      
+      NavigateHomeCommand = new NavigateCommand<HomeViewModel>(homeNavigationService);
     }
   }
 }
