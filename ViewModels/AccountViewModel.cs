@@ -1,4 +1,5 @@
 ﻿using NavigationMVVM.Commands;
+using NavigationMVVM.Services;
 using NavigationMVVM.Stores;
 using System;
 using System.Collections.Generic;
@@ -17,9 +18,8 @@ namespace NavigationMVVM.ViewModels
 
     public AccountViewModel(NavigationStore navigationStore)
     {
-      NavigateHomeCommand = new NavigateCommand<HomeViewModel>(
-        navigationStore,
-        () => new HomeViewModel(navigationStore));
+      NavigateHomeCommand = new NavigateCommand<HomeViewModel>(new NavigationService<HomeViewModel>(
+        navigationStore, () => new HomeViewModel(navigationStore)));
     }
   }
 }
